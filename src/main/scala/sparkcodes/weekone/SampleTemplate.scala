@@ -14,3 +14,4 @@ object SampleTemplate {
 
   //task 04: Highest yearly salary of each gender. Show your resultant data.
 }
+
