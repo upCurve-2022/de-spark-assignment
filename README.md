@@ -28,7 +28,6 @@ libraryDependencies ++= Seq(
   // ex :"org.apache.spark" %% "spark-core" % sparkVersion % provided,
   "org.apache.spark" %% "spark-core" % sparkVersion % scope,
   "org.apache.spark" %% "spark-sql" % sparkVersion % scope,
-  "org.apache.spark" %% "spark-sql-kafka-0-10" % sparkVersion % scope,
   "org.apache.spark" %% "spark-hive" % sparkVersion % scope,
   "org.scala-lang" % "scala-library" % scalaVersion.value,
   "com.fasterxml.jackson.core" % "jackson-core" % jacksonCore % scope,
