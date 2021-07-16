@@ -22,7 +22,7 @@ object HarshitaSaxena {
 
 
     //task 03: Filter "job_title" by any manager. Show your resultant data.
-    dfCreateNewColumns.filter(dframe("job_title") === "Chief Design Engineer").show(false)
+    dfCreateNewColumns.filter(dframe("job_title") === "Project Manager").show(false)
 
 
     //task 04: Highest yearly salary of each gender. Show your resultant data.
