@@ -1,12 +1,12 @@
 name := "ignite-spark-assignments"
 
-version := "1.0.0"
+version := "0.1"
 
 scalaVersion := "2.11.8"
 
 val sparkVersion = "2.3.2"
 val jacksonCore = "2.6.7"
-val scope = "provided"
+val scope = "compile"
 
 libraryDependencies ++= Seq(
   "org.scalamock" %% "scalamock" % "4.4.0" % Test,
