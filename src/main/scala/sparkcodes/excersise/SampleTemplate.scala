@@ -1,10 +1,12 @@
-package sparkcodes.weekone
+package sparkcodes.excersise
 
 object SampleTemplate {
 
   //create a main function and do the rest inside the main function.
 
   //create a spark session
+
+  //The dataset file you need to use is spark_assignment.csv
 
   //task 01: Create DataFrame from CSV data. Show your resultant data.
 
