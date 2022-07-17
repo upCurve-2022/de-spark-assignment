@@ -1,0 +1,49 @@
+package sparkcodes.excersise
+
+import org.apache.spark.sql.functions.{avg, col, column, max, udf}
+import org.apache.spark.sql.{Column, DataFrame, SparkSession}
+
+object Gittika {
+  //create a main function and do the rest inside the main function.
+
+  def main(args: Array[String]): Unit = {
+    //create a spark session
+    val spark: SparkSession = SparkSession.getActiveSession.getOrElse(
+      SparkSession.builder
+        .appName("InClassTasks")
+        .master("local[*]")
+        .enableHiveSupport()
+        .getOrCreate()
+    )
+    //The dataset file you need to use is spark_assignment.csv
+    //task 01: Create DataFrame from CSV data. Show your resultant data.
+    val  sparkAssignmentDataFrame:DataFrame=spark.read.option("header","true").format("csv").load("C:\\Users\\DELL\\Downloads\\de-spark-assignment\\de-spark-assignment\\data\\input\\spark_assignment.csv")
+         sparkAssignmentDataFrame.show()
+
+//  task 02: Create a new column "hostname" derived from "url" column. Show your resultant data.
+    val sql=udf((url:String)=>{
+      val a=url.split("\\/\\/")
+      val aa =a(1).split("\\/")
+      aa(0)
+    })
+val df=sparkAssignmentDataFrame.withColumn("hostname",sql(sparkAssignmentDataFrame.col("url")))
+    df.show()
+
+
+
+
+
+
+
+  //task 03: Filter "job_title" by any manager. Show your resultant data.
+   df.where(df("job_title")==="Human Resources Manager").show()
+
+
+
+
+
+  //task 04: Highest yearly salary of each gender. Show your resultant data.
+    df.groupBy("gender").agg(max("salary")).show()
+
+
+}}
