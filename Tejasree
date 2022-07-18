@@ -1,0 +1,47 @@
+package sparkcodes.excersise
+
+import org.apache.spark.sql.{DataFrame, SparkSession}
+import org.apache.spark.sql.functions._
+import org.apache.spark.sql.Row
+import org.apache.spark.sql.expressions.{Window, WindowSpec}
+
+object Tejasree {
+
+  def main(args: Array[String]): Unit= {
+
+    val sparkSession: SparkSession = SparkSession.getActiveSession.getOrElse(
+      SparkSession.builder
+        .appName("InClassTasks")
+        .master("local[*]")
+        .enableHiveSupport()
+        .getOrCreate()
+    )
+    //The dataset file you need to use is spark_assignment.csv
+
+    //task 01: Create DataFrame from CSV data. Show your resultant data.
+    println("---------- TASK 1 -----------")
+    val employeeDF: DataFrame = sparkSession.read.option("header","true").csv("data/input/spark_assignment.csv")
+     employeeDF.show()
+
+    //task 02: Create a new column "hostname" derived from "url" column. Show your resultant data.
+    println("---------- TASK 2 -----------")
+    val splitUrl : (String => String)=(arg:String)=> {
+      val splitarr =arg.split("\\/\\/")(1).split("\\/")
+      splitarr(0)
+    }
+    val sqlfunc = udf(splitUrl)
+    val hostnameDF = employeeDF.withColumn("hostname",sqlfunc(employeeDF.col("url")))
+    hostnameDF.show()
+    hostnameDF.printSchema()
+    //task 03: Filter "job_title" by any manager. Show your resultant data.
+    println("---------- TASK 3 -----------")
+    employeeDF.filter(employeeDF("job_title").contains("Manager")).show()
+    //task 04: Highest yearly salary of each gender. Show your resultant data
+    println("---------- TASK 4 -----------")
+    employeeDF.createOrReplaceTempView("GenderHighest")
+    val genderDF = sparkSession.sql("SELECT MAX(Salary) AS maxSalary,Gender FROM GenderHighest GROUP BY Gender")
+    genderDF.show()
+
+
+  }
+}
